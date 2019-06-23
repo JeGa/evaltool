@@ -214,7 +214,7 @@ class EvalNotebook:
             layout=Layout(
                 width='100%',
                 grid_template_rows='auto auto auto',
-                grid_template_columns='300px 120px auto',
+                grid_template_columns='400px 120px auto',
                 grid_template_areas='''
                 "control_label control_label control_label"
                 "results_select data_select data_show"
