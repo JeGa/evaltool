@@ -41,8 +41,14 @@ class Plotter:
         else:
             plt.gca().legend().remove()
 
-    def save_plot(self, filename, infotext=False):
+    def save_plot(self, filename, infotext=False, fileformat='.pdf', size=None, margins=None):
         plt.figure(1)
+
+        if size:
+            plt.gcf().set_size_inches(size[0], size[1], forward=True)
+
+        if margins:
+            plt.subplots_adjust(**margins)
 
         if infotext:
             text_pos_y = -1
@@ -55,7 +61,7 @@ class Plotter:
 
                 text_pos_y -= 0.6
 
-        plt.savefig(str(filename) + '.pdf', bbox_inches='tight')
+        plt.savefig(str(filename) + fileformat, dpi=1200)
 
     def reset(self):
         self.style('simple')
@@ -293,12 +299,9 @@ class EvalNotebook:
 
                 self.data_select.options = losses
 
-                with filepath.open('r') as file:
-                    text = file.read()
-
-                self.data_show.value = text
-
                 self.selected = yaml_data
+
+                self.data_show.value = self._infotext()
             except Exception as e:
                 print(e)
                 self.selection_valid = None
